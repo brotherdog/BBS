@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.1.1.js"></script>
+</head>
+<body>
+<table>
+    <tbody id="desk-table">
+    <tr>
+        <td>123</td>
+        <td>123</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+   function getDesk() {
+       var deskTable;
+       $.ajax({
+           url: '/select/desk',
+           type: 'get',
+           async: false,
+           success: function (data) {
+               deskTable = data;
+           }
+       });
+       return deskTable;
+   }
+
+
+   function showInTable(){
+       var deskTable = getDesk();
+       $('#desk-table').empty();
+       var desk;
+       for(var loop = 0 ; loop < deskTable.length ; loop++) {
+           desk += "<tr><td>"+deskTable[loop].num+"</td>";
+           desk += "<td>"+deskTable[loop].seating+"</td></tr>";
+       }
+       $('#desk-table').append(desk);
+   }
+
+   $(function(){
+       showInTable();
+   });
+
+</script>
+
+
+</body>
+</html>
